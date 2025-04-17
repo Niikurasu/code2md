@@ -31,12 +31,23 @@ except ImportError:
 DEFAULT_EXCLUDE_DIRS = {
     ".git", ".hg", ".svn", ".idea", ".vscode",
     "node_modules", "__pycache__", "build", "dist", ".mypy_cache",
+    ".venv"
 }
 
 DEFAULT_EXCLUDE_EXTS = {
     ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".ico",
     ".mp4", ".mp3", ".zip", ".tar", ".gz", ".exe", ".dll",
     ".class", ".o", ".so", ".pdf",
+}
+
+DEFAULT_IGNORE_FILES = {
+    ".env",
+    ".env.local",
+    ".env.development",
+    ".env.production",
+    ".env.test",
+    ".env.test.local",
+    ".env.test.local",
 }
 
 LANG_MAP = {
@@ -187,7 +198,11 @@ def main(argv: list[str] | None = None) -> None:
         print(f"ERROR: Path {root} does not exist.", file=sys.stderr)
         sys.exit(2)
 
-    ignore_patterns = list(DEFAULT_EXCLUDE_DIRS) + args.ignore_pattern
+    ignore_patterns = (
+        list(DEFAULT_EXCLUDE_DIRS)           # directories
+        + list(DEFAULT_IGNORE_FILES)         # files
+        + args.ignore_pattern                # user‑supplied
+    )
     ignore_spec = compile_ignore_spec(ignore_patterns)
 
     include_ext = {e.lower() for e in args.include_ext}

@@ -8,7 +8,7 @@ It relies on two light dependencies—**pathspec** (for `.gitignore`‑style r
 
 ## ✨ Features
 
-* **Zero‑config ignore rules** — understands common junk (`.git`, `__pycache__`, build artefacts) and honours additional `.gitignore`‑style patterns via **pathspec**.
+* **Zero‑config ignore rules** — understands common junk (`.git`, `.venv`, `.env`, `__pycache__`, build artefacts) and honours additional `.gitignore`‑style patterns via **pathspec**.
 * **ASCII tree preview** — readable Unicode tree at the top of the snapshot so you see project structure at a glance.
 * **Syntax‑highlighted fences** — each file is wrapped in a ```language fenced block; GitHub & VS Code highlight automatically.
 * **One‑line clipboard export** — the full Markdown is copied to your clipboard (macOS, Linux, Windows) through **pyperclip**.
@@ -85,6 +85,21 @@ optional arguments:
 Writing the README first clarifies intent—feel free to improve this doc as you add features!
 
 ---
+
+### Real‑life examples
+
+1. **Paste directly into ChatGPT for quick debugging**
+   ```bash
+   python code2md.py .
+   ```
+   Then simply *paste* the Markdown into your AI assistant.
+
+2. **Ship an always‑fresh CONTEXT.md for onboarding**
+   ```bash
+   python code2md.py . -o docs/CONTEXT.md --no-clip
+   git add docs/CONTEXT.md && git commit -m "docs: update context snapshot"
+   ```
+   New teammates can skim one file instead of cloning the whole repo.
 
 ## 🗺️ Roadmap
 
